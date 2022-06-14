@@ -1,17 +1,27 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.1)
+project(test_package)
 
-# set the project name
-project(helloword)
+# include(${CMAKE_SOURCE_DIR}/3rd/conanbuildinfo.cmake)
+include(/Users/guoxb/code/github/community/recipes/ffmpeg/all/conanbuildinfo.cmake)
+conan_basic_setup()
 
-add_definitions(-DCMAKE_OSX_ARCHITECTURES=i386) 
+function(add_option option)
+    if(${option})
+        add_executable(${option} ${option}.c)
+        target_link_libraries(${option} ${CONAN_LIBS})
+    endif()
+endfunction()
 
-SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb -Wl,-rpath=./:./lib:./lib/build/lib") #-Wl,-rpath=./
-SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wl,-rpath=./:./lib") #-Wall
+# add_executable(${PROJECT_NAME} main.cpp)
+# target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
+# set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 
-set(FF_PATH /Users/tianwenhui/.conan/data/ffmpeg/4.2.1/demo/testing/package/06b344da6911e66ea61bf801110358f17e58e82e)
-# add the executable
-add_executable(${PROJECT_NAME} decode_video.c)
-set(FFMPEG_LIBS avdevice avformat avfilter avcodec swresample swscale avutil)
-target_include_directories(${PROJECT_NAME} PRIVATE ${FF_PATH}/include)
-target_link_directories(${PROJECT_NAME} PRIVATE ${FF_PATH}/lib)
-target_link_libraries(${PROJECT_NAME} ${FFMPEG_LIBS})
+# add_option(decode_video)
+
+set(TEMP_NAME file_pic)
+add_executable(${TEMP_NAME} file_pic.c)
+target_link_libraries(${TEMP_NAME} ${CONAN_LIBS})
+
+# set(TEMP_NAME decode_audio)
+# add_executable(${TEMP_NAME} decode_audio.c)
+# target_link_libraries(${TEMP_NAME} ${CONAN_LIBS})

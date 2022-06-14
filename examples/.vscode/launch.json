@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(lldb) 启动",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/Users/guoxb/code/learn/learn_ffmpeg/examples/build/bin/file_pic",
+            "args": [
+                "/Users/guoxb/Downloads/dn4mids9uvaobofkbec2tyn_5/assets/52424955-6ba8-4202-8337-6a207a596b09_szg_1000114_0b53maabgaaaz4ahrca5fzrmuygdcnqaae2a.f80.mp4",
+                "/Users/guoxb/Downloads/test/"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        }
+    ]
+}

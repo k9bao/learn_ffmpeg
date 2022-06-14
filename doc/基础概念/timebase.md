@@ -1,17 +1,8 @@
----
-layout: post
-title: ffmpeg_timebase
-date: 2019-11-29 14:57:00
-description: ffmpeg_timebase
-tag: ffmpeg
-
----
-
-
 # time_base
 
 AVRational time_base
-```
+
+```c++
 /**
  * @defgroup lavu_math_rational AVRational
  * @ingroup lavu_math
@@ -39,28 +30,30 @@ typedef struct AVRational{
     int den; ///< Denominator
 } AVRational;
 ```
-+ AVStream->time_base单位为秒,AVStream->time_base为1/90000
-+ AVCodecContext->time_base单位为秒,AVCodecContext->time_base为1/30(假设frame_rate为30)
 
-##AVPacket:
+- AVStream->time_base单位为秒,AVStream->time_base为1/90000
+- AVCodecContext->time_base单位为秒,AVCodecContext->time_base为1/30(假设frame_rate为30)
+
+- AVPacket:
 pts,dts:AVStream->time_base为单位
-##AVFrame:
+- AVFrame:
 pkt_pts,pkt_dts:AVStream->time_base为单位
 pts:AVCodecContext->time_base
-##InputStream:
+- InputStream:
 pts,dts:AV_TIME_BASE为单位(微秒)  #define AV_TIME_BASE   1000000
-##OutputStream
+- OutputStream
 
 ## 转换函数
 
 av_rescale_q(a,b,c)作用相当于执行a*b/c
-1. InputStream(AV_TIME_BASE)到AVPacket(AVStream->time_base)
- pkt->dts = av_rescale_q(inputStream->dts, AV_TIME_BASE_Q, AVStream->time_base);
- pkt->dts = inputStream->dts*AV_TIME_BASE_Q/AVStream->time_base;
 
-2. AVPacket(AVStream->time_base)到InputStream(AV_TIME_BASE)
- inputStream->dts = av_rescale_q(pkt->dts, AVStream->time_base, AV_TIME_BASE_Q);
- inputStream->dts = pkt->dts * AVStream->time_base / AV_TIME_BASE_Q
+- InputStream(AV_TIME_BASE)到AVPacket(AVStream->time_base)
+pkt->dts = av_rescale_q(inputStream->dts, AV_TIME_BASE_Q, AVStream->time_base);
+pkt->dts = inputStream->dts*AV_TIME_BASE_Q/AVStream->time_base;
+
+- AVPacket(AVStream->time_base)到InputStream(AV_TIME_BASE)
+inputStream->dts = av_rescale_q(pkt->dts, AVStream->time_base, AV_TIME_BASE_Q);
+inputStream->dts = pkt->dts * AVStream->time_base / AV_TIME_BASE_Q
 
 ## 后记
 

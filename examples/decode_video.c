@@ -41,7 +41,7 @@ static void pgm_save(unsigned char *buf, int wrap, int xsize, int ysize,
     FILE *f;
     int i;
 
-    f = fopen(filename,"w");
+    f = fopen(filename,"wb");
     fprintf(f, "P5\n%d %d\n%d\n", xsize, ysize, 255);
     for (i = 0; i < ysize; i++)
         fwrite(buf + i * wrap, 1, xsize, f);
@@ -56,8 +56,8 @@ static void decode(AVCodecContext *dec_ctx, AVFrame *frame, AVPacket *pkt,
 
     ret = avcodec_send_packet(dec_ctx, pkt);
     if (ret < 0) {
-        fprintf(stderr, "Error sending a packet for decoding\n");
-        exit(1);
+        fprintf(stderr, "Error sending a packet for decoding,ret=%d\n",ret);
+        // exit(1);
     }
 
     while (ret >= 0) {
@@ -95,7 +95,8 @@ int main(int argc, char **argv)
     AVPacket *pkt;
 
     if (argc <= 2) {
-        fprintf(stderr, "Usage: %s <input file> <output file>\n", argv[0]);
+        fprintf(stderr, "Usage: %s <input file> <output file>\n"
+                "And check your input file is encoded by mpeg1video please.\n", argv[0]);
         exit(0);
     }
     filename    = argv[1];
@@ -109,7 +110,7 @@ int main(int argc, char **argv)
     memset(inbuf + INBUF_SIZE, 0, AV_INPUT_BUFFER_PADDING_SIZE);
 
     /* find the MPEG-1 video decoder */
-    codec = avcodec_find_decoder(AV_CODEC_ID_MPEG1VIDEO);
+    codec = avcodec_find_decoder(AV_CODEC_ID_H264);
     if (!codec) {
         fprintf(stderr, "Codec not found\n");
         exit(1);

@@ -1,16 +1,4 @@
----
-layout: post
-title: ffmpeg-cuda随记
-date: 2019-11-29 14:57:21
-description: ffmpeg-cuda随记
-tag: ffmpeg
-
----
-
-
-
-涉及文件：
-
+# 涉及文件
 
 涉及结构体及简单关系描述：
 AVHWDeviceContext: 具体硬件设备相关结构体
