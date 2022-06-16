@@ -4,7 +4,6 @@ from . import VideoProp
 
 
 class TestIllegal(unittest.TestCase):
-
     def __init__(self):
         self.src_file = "big_buck_bunny.mp4"
         self.first_file = "1.mp4"
@@ -17,7 +16,7 @@ class TestIllegal(unittest.TestCase):
         os.system(f"ffmpeg -y -ss 0 -to 8 -i {self.src_file} -codec copy {self.third_file}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
 
 # 验证下载文件和获取信息，那个耗时长？

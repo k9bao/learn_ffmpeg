@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 project(test_package)
 
-# include(${CMAKE_SOURCE_DIR}/3rd/conanbuildinfo.cmake)
-include(/Users/guoxb/code/github/community/recipes/ffmpeg/all/conanbuildinfo.cmake)
+include(${CMAKE_SOURCE_DIR}/3rd/conanbuildinfo.cmake)
 conan_basic_setup()
 
 function(add_option option)
@@ -12,16 +11,10 @@ function(add_option option)
     endif()
 endfunction()
 
-# add_executable(${PROJECT_NAME} main.cpp)
-# target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
-# set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
-
-# add_option(decode_video)
-
 set(TEMP_NAME file_pic)
 add_executable(${TEMP_NAME} file_pic.c)
 target_link_libraries(${TEMP_NAME} ${CONAN_LIBS})
 
-# set(TEMP_NAME decode_audio)
-# add_executable(${TEMP_NAME} decode_audio.c)
-# target_link_libraries(${TEMP_NAME} ${CONAN_LIBS})
+set(TEMP_NAME decode_audio)
+add_executable(${TEMP_NAME} decode_audio.c)
+target_link_libraries(${TEMP_NAME} ${CONAN_LIBS})
